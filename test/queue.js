@@ -1,15 +1,26 @@
 'use strict';
 
 const queue = require('../lib/queue');
-const processor = require('../lib/processor');
+const { createProcessor } = require('../lib/processor');
 const redis = require('ioredis');
 const uuid = require('uuid');
 const {expect} = require('chai');
+const database = require('../lib/database')
+const validation = require('../lib/validation.js')
 
 describe('Tracking', () => {
   let queueName;
   let testingQueue;
   let client;
+  let connection
+
+  before(async () => {
+    connection = database.createDBConnection(process.env.MONGODB_URL)
+  })
+
+  after(async () => {
+    await connection.connections.forEach(connection => connection.close())
+  })
 
   beforeEach(() => {
     client = new redis();
@@ -23,7 +34,7 @@ describe('Tracking', () => {
 
   afterEach(async function() {
     await queue.closeQueue(queueName);
-
+    await database.Session.collection.drop()
     return client.quit();
   });
 
@@ -65,7 +76,7 @@ describe('Tracking', () => {
 
       const jobName = 'optIn';
       queue.addMessage(queueName, jobName, message);
-      testingQueue.process(jobName, processor);
+      testingQueue.process(jobName, createProcessor(database, validation));
     });
   });
 
