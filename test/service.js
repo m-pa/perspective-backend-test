@@ -12,7 +12,7 @@ database.createDBConnection()
 
 const start = async () => {
   startTS = Date.now()
-  
+  console.log('start generating jobs...')
   const hasData = await database.Session.findOne({}).exec()
   if (hasData) {
     await database.Session.collection.drop()
@@ -42,7 +42,7 @@ process.on('SIGINT', async () => {
   if (hasData) {
     await database.Session.collection.drop()
   }
-  console.log(`${createdJobs} created`)
+  console.log(`\n${createdJobs} created`)
   console.log(`processed ${jobsCreated.length} jobs in ${currentTS - startTS} ms. ${(currentTS - startTS) / jobsCreated.length} ms/job`)
   console.log('\nobliterating remaining jobs...')
   await queue.obliterate({ force: true })

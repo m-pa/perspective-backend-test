@@ -1,18 +1,31 @@
 # Perspective Backend Engineer Worksample
+Hey there! This is what i made.
 
-Good day!
+## Usage
+  Run test suite
+    `npm run test`
+  Start service
+    `npm run start`
+  Run test service
+    `npm run test:service` and start service
 
-This is the code part to the written work sample. In here you can find a simple setup on how to consume a queue. 
-The tests are working, so you can run `npm test` and start from there.
+## Environment
+  Environment can have the following variables:
+  - Redis url: `REDIS_URL`  value: `url to redis service ie: redis://127.0.0.1:6379`
+  - Mongodb url: `MONGODB_URL` value: `url to mongodb instance ie: mongodb://localhost:27017/sessions` (make sure this is the right one, test suite and service will drop collection)
+  - Log level: `LOG_LEVEL` value: `info | warning | error`
+  - Web concurrency: `WEB_CONCURRENCY` value: `[integer]` - controls number of workers
+  - Job concurrency: `JOB_CONCURRENCY` value: `[integer]` - controls bull concurrent operations
 
-In the `/samples` folder you can find multiple sample messages which you can feed to your system. 
+## Troubleshooting
+  If mongodb can not be found (`UnhandledPromiseRejectionWarning: TypeError: this.db.open is not a function`), it's possible the version needs to be prefixed with: 
+    `npm install --prefix ./node_modules/mongoose/ mongodb@2.1.6 --save`
 
-
-## Goal
-1. You create a `Session` model in MongoDB (preferred with Mongoose). It needs to have one property `profile` which type this property has is not defined. (You can define it)
-2. You provide one function / query / aggregation which gets a session ID as parameter and returns the latest information about the session, take special care about the `profile` property!
-3. We expect from your service that it takes the job data and creates or updates a session based on the job's `clientSessionId` property.
-
-Feel free to add or change this project as you like.
-
-
+## Roadmap
+  - Find solution for duplicate profile entries saved to database
+  - Global error handling
+  - Graceful shutdown
+  - Logging file transport
+  - Log more bull events (ie: stalled jobs)
+  - Metrics
+  - Refactoring

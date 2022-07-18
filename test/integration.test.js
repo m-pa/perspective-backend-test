@@ -244,6 +244,5 @@ describe('Tracking', () => {
       service.queueInternals.addMessage(queueName, 'optIn', invalidMessage);
     });
   });
-
-  // TODO: test db operation error
 });
+

@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "nf start",
-    "test": "NODE_ENV=test DEBUG=test nyc --reporter='text' mocha --recursive \"./test/**/*.test.js\""
+    "test": "NODE_ENV=test DEBUG=test nyc --reporter='text' mocha --recursive \"./test/**/*.test.js\"",
+    "test:service": "node ./test/service" 
   },
   "author": "Christoph Fey",
+  "contributors": ["Patrick Matheis"],
   "license": "ISC",
   "dependencies": {
     "bull": "^3.7.0",
