@@ -1,5 +1,5 @@
 const { createProcessor } = require('../../lib/processor')
-const { dbConnection, validation } = require('../../mocks/mocks.js')
+const { dbConnection, validation, logger } = require('../../mocks/mocks.js')
 const chai = require('chai')
 const spies = require('chai-spies')
 
@@ -40,19 +40,24 @@ describe('processor', () => {
   })
 
   it('saves new session to database', async () => {
-    const processor = createProcessor(dbConnection, validation)
-    const spy = chai.spy.on(dbConnection.sessionDocument, 'save')
+    const processor = createProcessor(dbConnection, validation, logger, dbConnection.Session)
+    const spy = chai.spy.on(dbConnection.Session, 'update')
+    console.log('processor')
     await processor({ data: input })
     expect(spy).to.have.been.called();
     chai.spy.restore()
   })
 
   it('saves no duplicate session to database', async () => {
-    const processor = createProcessor(dbConnection, validation)
+    const processor = createProcessor(dbConnection, validation, logger, dbConnection.Session)
     dbConnection.Session.findOne = () => ({ exec: () => ({ document: 'mock' })})
     const spy = chai.spy.on(dbConnection.sessionDocument, 'save')
     await processor({ data: input })
     expect(spy).to.not.have.been.called();
     chai.spy.restore()
   })
+
+  // TODO: lastseenat should always be the greater one
+  // TODO: handle duplicated messeges (do not duplicate optins)
+  // TODO: append optins in db
 })

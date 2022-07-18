@@ -4,7 +4,7 @@ module.exports = {
       return this.sessionDocument || {}
     },
     Session: {
-      findOne: () => ({ exec: () => null }),
+      update: () => ({ exec: async () => null }),
     },
     sessionDocument: {
       save: () => {},
@@ -14,4 +14,9 @@ module.exports = {
   validation: {
     validate: () => {}
   },
+  logger: {
+    info: () => {},
+    warning: () => {},
+    error: () => {}
+  }
 }
