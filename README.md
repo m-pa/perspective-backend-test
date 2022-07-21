@@ -4,8 +4,10 @@ Hey there! This is what i made.
 ## Usage
   Run test suite
     `npm run test`
+
   Start service
     `npm run start`
+    
   Run test service
     `npm run test:service` and start service
 
