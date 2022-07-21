@@ -4,7 +4,7 @@ module.exports = {
       return this.sessionDocument || {}
     },
     Session: {
-      update: () => ({ exec: async () => null }),
+      update: () => ({ exec: async () => null })
     },
     sessionDocument: {
       save: () => {},

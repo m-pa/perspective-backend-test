@@ -1,7 +1,7 @@
 require('dotenv').config(); // eslint-disable-line
 
 const message = require('../samples/message-1.json')
-const queueInternals = require('../lib/queue');
+const queueInternals = require('../lib/queue')
 const crypto = require('crypto')
 const database = require('../lib/database')
 let startTS
@@ -18,26 +18,26 @@ const start = async () => {
     await database.Session.collection.drop()
   }
 
-  queue = await queueInternals.createQueue('tracking', 'redis://127.0.0.1:6379');
+  queue = await queueInternals.createQueue('tracking', 'redis://127.0.0.1:6379')
   setInterval(() => {
-    const id = crypto.randomBytes(20).toString('hex');
+    const id = crypto.randomBytes(20).toString('hex')
     message.properties.clientSessionId = id
     queueInternals.addMessage('tracking', 'optIn', message)
     createdJobs = createdJobs + 1
-  }, 1);
+  }, 1)
 
   setInterval(() => {
-    const id = crypto.randomBytes(20).toString('hex');
+    const id = crypto.randomBytes(20).toString('hex')
     message.properties.clientSessionId = id
     queueInternals.addMessage('tracking', 'optIn', message)
     createdJobs = createdJobs + 1
-  }, 2);
+  }, 2)
 }
 
 process.on('SIGINT', async () => {
   const jobsCreated = await database.Session.find()
   const currentTS = Date.now()
-  
+
   const hasData = await database.Session.findOne({}).exec()
   if (hasData) {
     await database.Session.collection.drop()

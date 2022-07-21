@@ -6,11 +6,17 @@
   "scripts": {
     "start": "nf start",
     "test": "NODE_ENV=test DEBUG=test nyc --reporter='text' mocha --recursive \"./test/**/*.test.js\"",
-    "test:service": "node ./test/service" 
+    "test:service": "node ./test/service",
+    "lint": "standard --fix"
   },
   "author": "Christoph Fey",
-  "contributors": ["Patrick Matheis"],
+  "contributors": [
+    "Patrick Matheis"
+  ],
   "license": "ISC",
+  "standard": {
+    "env": ["mocha"]
+  },
   "dependencies": {
     "bull": "^3.7.0",
     "dotenv": "^15.0.0",
@@ -21,11 +27,12 @@
     "winston": "^3.8.0"
   },
   "devDependencies": {
-    "chai-spies": "^1.0.0",
     "chai": "^4.3.6",
+    "chai-spies": "^1.0.0",
     "ioredis": "^4.28.3",
     "mocha": "^9.2.0",
     "nyc": "^15.0.1",
+    "standard": "^17.0.0",
     "uuid": "^8.3.2"
   }
 }

@@ -3,30 +3,30 @@ const { expect } = require('chai')
 
 describe('validation', () => {
   const input = {
-    timestamp: "2021-06-07T08:32:05.546Z",
-    sentAt: "2021-06-07T08:32:05.547Z",
+    timestamp: '2021-06-07T08:32:05.546Z',
+    sentAt: '2021-06-07T08:32:05.547Z',
     properties: {
-      trackingVersion: "v3",
-      clientSessionId: "AFfmr1iGvkrJXxKWid9Ih",
-      clientPersistentId: "W3hi37-xp--9_pG1jkwIz",
-      pageId: "609a878b0cba83001fb5abd7",
-      companyId: "5fb4eb1a839d81001f800c21",
-      funnelId: "609a878b0cba83001fb5abd2",
-      funnelVersionId: "60a4c19fcf963b001f9f286e",
+      trackingVersion: 'v3',
+      clientSessionId: 'AFfmr1iGvkrJXxKWid9Ih',
+      clientPersistentId: 'W3hi37-xp--9_pG1jkwIz',
+      pageId: '609a878b0cba83001fb5abd7',
+      companyId: '5fb4eb1a839d81001f800c21',
+      funnelId: '609a878b0cba83001fb5abd2',
+      funnelVersionId: '60a4c19fcf963b001f9f286e',
       optIns: [
         {
-          fieldName: "fullName",
-          label: "Full Name",
-          value: "Christoph Fey"
+          fieldName: 'fullName',
+          label: 'Full Name',
+          value: 'Christoph Fey'
         },
         {
-          fieldName: "email",
-          label: "Business Email",
-          value: "christoph@perspective.co"
+          fieldName: 'email',
+          label: 'Business Email',
+          value: 'christoph@perspective.co'
         }
       ]
     },
-    messageId: "perspective-q6qmW8wlPgRwJo1JOB1Yz",  
+    messageId: 'perspective-q6qmW8wlPgRwJo1JOB1Yz'
   }
 
   it('throws an error if input is not an object', () => {
@@ -71,8 +71,6 @@ describe('validation', () => {
   })
 
   it('throws error if timestamp is not a valid date', () => {
-    
-    
     let result
 
     try {
@@ -80,7 +78,6 @@ describe('validation', () => {
         ...input,
         timestamp: 'invalid'
       })
-
     } catch (err) {
       expect(err).to.be.an('error')
       expect(err.message).to.contain('timestamp')
@@ -90,7 +87,6 @@ describe('validation', () => {
   })
 
   it('throws error if sentAt is not a valid date', () => {
-
     let result
 
     try {
@@ -98,7 +94,6 @@ describe('validation', () => {
         ...input,
         sentAt: 'invalid'
       })
-      
     } catch (err) {
       expect(err).to.be.an('error')
       expect(err.message).to.contain('sentAt')
@@ -108,7 +103,6 @@ describe('validation', () => {
   })
 
   it('throws error if messageId is not a string', () => {
-
     let result
 
     try {
@@ -116,7 +110,6 @@ describe('validation', () => {
         ...input,
         messageId: []
       })
-      
     } catch (err) {
       expect(err).to.be.an('error')
       expect(err.message).to.contain('messageId')
@@ -125,7 +118,6 @@ describe('validation', () => {
     expect(result).to.not.equal(true)
   })
   it('throws error if properties is not an object', () => {
-    
     let result
 
     try {
@@ -133,7 +125,6 @@ describe('validation', () => {
         ...input,
         properties: 'not an object'
       })
-      
     } catch (err) {
       expect(err).to.be.an('error')
       expect(err.message).to.contain('properties')
@@ -153,7 +144,6 @@ describe('validation', () => {
 
     try {
       result = validate(localInput)
-      
     } catch (err) {
       expect(err).to.be.an('error')
       expect(err.message).to.contain('properties')
@@ -316,13 +306,12 @@ describe('validation', () => {
   })
 
   it('throws error if properties.optIns is longer than 10 items', () => {
-
     const optIns = new Array(11).fill(null)
 
     const localInput = {
       ...input,
       properties: {
-        ...input.properties, 
+        ...input.properties,
         optIns
       }
     }
@@ -340,21 +329,21 @@ describe('validation', () => {
   })
 
   it('throws error if properties.optIns items have duplicate field names', () => {
-    const optIns =  [{
-      fieldName: "fullName",
-      label: "Full Name",
-      value: "Christoph Fey"
+    const optIns = [{
+      fieldName: 'fullName',
+      label: 'Full Name',
+      value: 'Christoph Fey'
     },
     {
-      fieldName: "fullName",
-      label: "Business Email",
-      value: "christoph@perspective.co"
+      fieldName: 'fullName',
+      label: 'Business Email',
+      value: 'christoph@perspective.co'
     }]
 
     const localInput = {
       ...input,
       properties: {
-        ...input.properties, 
+        ...input.properties,
         optIns
       }
     }
